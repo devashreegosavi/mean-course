@@ -10,10 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule} from '@angular/material/card';
+import { HeaderComponent } from './header/header.component';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import { PostListComponent } from './posts/post-list/post-list.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    HeaderComponent,
+    PostListComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,9 @@ import { MatCardModule} from '@angular/material/card';
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatToolbarModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
