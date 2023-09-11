@@ -34,11 +34,12 @@ export class PostCreateComponent implements OnInit{
         }
         //this.newPost = this.enteredValue;
         const post : Post = {
+            id : form.value.id,
             title : form.value.title ,
             content : form.value.content
         };
         //this.postCreated.emit(post);
-        this.postsService.addPost(form.value.title, form.value.content);
+        this.postsService.addPost(form.value.id, form.value.title, form.value.content);
         form.resetForm();
     }
 }
