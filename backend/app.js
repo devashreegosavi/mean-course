@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const Post = require('./models/post');
 const app = express();
 
-mongoose.connect("mongodb+srv://devashreenic:POWkc5128wUkYJac@cluster0.t18appb.mongodb.net/?retryWrites=true&w=majority")
+//"mongodb+srv://devashreenic:POWkc5128wUkYJac@cluster0.t18appb.mongodb.net/?retryWrites=true&w=majority"
+mongoose.connect('mongodb://localhost:27017/myapp')
     .then(()=>{
         console.log('Connected to database')
     })
@@ -60,7 +61,7 @@ app.post('/api/posts',(req,res,next) => {
 });
 
 
-app.use('/api/posts',(req,res,next)=>{
+/*app.use('/api/posts',(req,res,next)=>{
     const posts = [
         { 
             id : '1111',
@@ -79,5 +80,16 @@ app.use('/api/posts',(req,res,next)=>{
         posts : posts
     });
 });
+*/
+
+app.get("/api/posts", (req, res, next) => {
+    Post.find().then(documents => {
+      res.status(200).json({
+        message: "Posts fetched successfully!",
+        posts: documents
+      });
+    });
+  });
+
 
 module.exports = app;
