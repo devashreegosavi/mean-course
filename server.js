@@ -5,6 +5,7 @@ const app = require('./backend/app');
 /*const server = http.createServer((req,res) => {
     res.end('This is my first response');
 });*/
+
 const normalizePort = val => {
     var port = parseInt(val, 10);
   
@@ -53,4 +54,3 @@ const normalizePort = val => {
   server.on("error", onError);
   server.on("listening", onListening);
   server.listen(port);
-  
