@@ -1,10 +1,12 @@
 const http = require('http');
 const debug = require('debug')("node-angular");
 const app = require('./backend/app');
-
+var cors = require('cors');
 /*const server = http.createServer((req,res) => {
     res.end('This is my first response');
 });*/
+
+app.use(cors());
 
 const normalizePort = val => {
     var port = parseInt(val, 10);
