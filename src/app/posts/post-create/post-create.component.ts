@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Post } from "../post.model";
-import { NgForm } from "@angular/forms";
+import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 import { PostsService } from "../posts.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 @Component({
@@ -18,6 +18,7 @@ export class PostCreateComponent implements OnInit{
     private postId : string;
     public post : Post;
     isLoading = false;
+    form : FormGroup;
     //@Output() postCreated = new EventEmitter<Post>();
     /*onAddPost(postInput : HTMLTextAreaElement){
         //alert('Post added');
@@ -30,6 +31,14 @@ export class PostCreateComponent implements OnInit{
     }
 
     ngOnInit(){
+        this.form = new FormGroup({
+            'title' : new FormControl(null, {
+                validators : [Validators.required, Validators.minLength(3)]
+            }),
+            'content' : new FormControl(null, {
+                validators : [Validators.required]
+            })
+        });
         this.route.paramMap.subscribe((paramMap : ParamMap)=>{
             if(paramMap.has('postId')){
                 this.mode = 'edit';
@@ -37,7 +46,15 @@ export class PostCreateComponent implements OnInit{
                 this.isLoading = true;
                 this.postsService.getPost(this.postId).subscribe(postData => {
                     this.isLoading = false;
-                    this.post = {id: postData._id, title : postData.title, content : postData.content};
+                    this.post = {
+                        id: postData._id, 
+                        title : postData.title, 
+                        content : postData.content
+                    };
+                    this.form.setValue({
+                        'title' : this.post.title, 
+                        'content' : this.post.content
+                    });
                 });
             }else{
                 this.mode = 'create';
@@ -46,25 +63,25 @@ export class PostCreateComponent implements OnInit{
         });
     }
 
-    onSavePost(form : NgForm){
-        if(form.invalid){
+    onSavePost(){
+        if(this.form.invalid){
             return;
         }
         this.isLoading = true;
         //this.newPost = this.enteredValue;
         const post : Post = {
-            id : form.value.id,
-            title : form.value.title ,
-            content : form.value.content
+            id : this.form.value.id,
+            title : this.form.value.title ,
+            content : this.form.value.content
         };
         if(this.mode === 'create'){
-            this.postsService.addPost(form.value.id, form.value.title, form.value.content);
+            this.postsService.addPost(this.form.value.id, this.form.value.title, this.form.value.content);
         }
         else{
-            this.postsService.updatePost(this.postId, form.value.title, form.value.content)
+            this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content)
         }
         //this.postCreated.emit(post);
         
-        form.resetForm();
+        this.form.reset();
     }
 }

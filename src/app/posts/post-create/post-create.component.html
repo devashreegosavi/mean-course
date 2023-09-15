@@ -1,5 +1,34 @@
-<!--<textarea rows="6" [value]="newPost" #postInput></textarea>-->
+
+
 <mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form"
+    (submit)="onSavePost()" *ngIf="!isLoading">
+        <mat-form-field>
+            <input matInput type="text" formControlName="title"
+            placeholder="Post Title">
+            <mat-error *ngIf="form.get('title').invalid">Please enter a post title</mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+            <input type="file" #filePicker>
+        </div>
+        <mat-form-field>
+            <textarea matInput rows="6" formControlName="content"
+            placeholder="Post Content"></textarea>
+            <mat-error *ngIf="form.get('content').invalid">Please enter a post content</mat-error>
+        </mat-form-field>
+        <button 
+        mat-raised-button
+        color="accent"
+         type="submit">Save Post</button>
+    </form>
+</mat-card>
+
+<!------------------------------------------------------------>
+<!-- Below template driven approach-->
+<!--<textarea rows="6" [value]="newPost" #postInput></textarea>-->
+<!--<mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
         <mat-form-field>
@@ -19,7 +48,8 @@
         color="accent"
          type="submit">Save Post</button>
     </form>
-    
 </mat-card>
+-->
+
 <!--<button (click)="onAddPost(postInput)">Save Post</button>
 <p>{{ newPost }}</p>-->
