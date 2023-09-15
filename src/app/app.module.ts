@@ -14,7 +14,9 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,9 @@ import { HttpClientModule} from '@angular/common/http';
     MatCardModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
     HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

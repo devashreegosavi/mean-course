@@ -17,6 +17,7 @@ export class PostCreateComponent implements OnInit{
     private mode = 'create';
     private postId : string;
     public post : Post;
+    isLoading = false;
     //@Output() postCreated = new EventEmitter<Post>();
     /*onAddPost(postInput : HTMLTextAreaElement){
         //alert('Post added');
@@ -33,7 +34,9 @@ export class PostCreateComponent implements OnInit{
             if(paramMap.has('postId')){
                 this.mode = 'edit';
                 this.postId = paramMap.get('postId');
+                this.isLoading = true;
                 this.postsService.getPost(this.postId).subscribe(postData => {
+                    this.isLoading = false;
                     this.post = {id: postData._id, title : postData.title, content : postData.content};
                 });
             }else{
@@ -47,6 +50,7 @@ export class PostCreateComponent implements OnInit{
         if(form.invalid){
             return;
         }
+        this.isLoading = true;
         //this.newPost = this.enteredValue;
         const post : Post = {
             id : form.value.id,
