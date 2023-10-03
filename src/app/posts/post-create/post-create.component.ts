@@ -19,6 +19,7 @@ export class PostCreateComponent implements OnInit{
     public post : Post;
     isLoading = false;
     form : FormGroup;
+    imagePreview : any;
     //@Output() postCreated = new EventEmitter<Post>();
     /*onAddPost(postInput : HTMLTextAreaElement){
         //alert('Post added');
@@ -37,7 +38,8 @@ export class PostCreateComponent implements OnInit{
             }),
             'content' : new FormControl(null, {
                 validators : [Validators.required]
-            })
+            }),
+            'image' : new FormControl(null, {validators : [Validators.required]})
         });
         this.route.paramMap.subscribe((paramMap : ParamMap)=>{
             if(paramMap.has('postId')){
@@ -83,5 +85,18 @@ export class PostCreateComponent implements OnInit{
         //this.postCreated.emit(post);
         
         this.form.reset();
+    }
+
+    onImagePicked(event : Event){
+        const file = (event.target as HTMLInputElement).files[0];
+        this.form.patchValue({image : file});
+        this.form.get('image').updateValueAndValidity();
+        //console.log(file);
+        //console.log(this.form);
+        const reader = new FileReader();
+        reader.onload = () =>{
+            this.imagePreview = reader.result;
+        };
+        reader.readAsDataURL(file);
     }
 }
