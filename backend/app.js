@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/posts');
 const Post = require('./models/post');
+const userRoutes = require('./routes/user');
 const app = express();
 var cors = require('cors');
 //"mongodb+srv://devashreenic:POWkc5128wUkYJac@cluster0.t18appb.mongodb.net/?retryWrites=true&w=majority"
@@ -77,5 +78,6 @@ app.use((req,res,next) => {
 
 
 app.use("/api/posts",postsRoutes);
+app.use("/api/user",userRoutes);
 
 module.exports = app;

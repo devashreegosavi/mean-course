@@ -4,13 +4,15 @@ textarea {
     width: 100%;
 }
 
+mat-spinner{
+    margin: auto;
+}
+
 button{
     width: 20%;
 }
 
-mat-spinner{
-    margin: auto;
-}
+
 
 input[type="file"]{
     visibility: hidden;
